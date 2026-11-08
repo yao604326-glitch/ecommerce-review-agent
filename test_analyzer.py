@@ -62,6 +62,13 @@ def main() -> int:
         list(topics),
     )
 
+    negated_quality = _topic_evidence("客服回复很快，走线整齐，没有多余线头，整体很满意。")
+    check(
+        "“没有多余线头”不判为质量问题",
+        (negated_quality.get("质量做工") or {}).get("polarity") != "负面",
+        negated_quality.get("质量做工"),
+    )
+
     agent = CommentAgent(quiet=True)
     read_result = agent.read_comments()
     check("读取示例表格", read_result.get("total") == 5, read_result.get("error") or read_result)

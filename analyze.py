@@ -150,7 +150,7 @@ def _to_float(value: Any) -> float | None:
 
 def _is_negated(text: str, index: int) -> bool:
     prefix = text[max(0, index - 4): index]
-    return any(prefix.endswith(marker) for marker in NEGATION_MARKERS)
+    return any(marker in prefix for marker in NEGATION_MARKERS)
 
 
 def _match_terms(text: str, lexicon: dict[str, float]) -> list[dict[str, Any]]:
@@ -700,7 +700,11 @@ class CommentAgent:
             if stat["negative_mentions"] <= 0:
                 continue
             samples = []
-            for item in comments:
+            ranked = sorted(
+                comments,
+                key=lambda item: (item["sentiment"] != "负面", item["risk"] != "高"),
+            )
+            for item in ranked:
                 if any(a["topic"] == stat["topic"] and a["polarity"] == "负面" for a in item["aspects"]):
                     samples.append(_truncate(item["content"], 62))
                 if len(samples) >= 2:
