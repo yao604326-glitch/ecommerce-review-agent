@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# 虚拟环境
+.venv/
+venv/
+env/
+
+# 本地配置与密钥
+.env
+.env.*
+
+# 运行产物（仓库中保留 docs/sample_report.md 作为示例）
+reports/
+
+# 编辑器与系统文件
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

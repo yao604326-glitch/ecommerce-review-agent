@@ -1,0 +1,4 @@
+# 运行 analyze.py 所需依赖
+openpyxl>=3.1.2
+openai>=1.40.0
+python-dotenv>=1.0.1
